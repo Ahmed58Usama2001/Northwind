@@ -1,4 +1,5 @@
-﻿using static Northwind.DataLists;
+﻿using Northwind.Entities;
+using static Northwind.DataLists;
 namespace Northwind
 {
     internal class Program
@@ -9,12 +10,13 @@ namespace Northwind
             #region Retrieve all products with a unit price greater than $50.
             //var products = Products.Where(product => product.UnitPrice > 50);
 
+
             //products = from product in Products
             //           where product.UnitPrice > 50
             //           select product;
 
             //foreach (var product in products)
-            //    Console.WriteLine(product);
+            //Console.WriteLine(product);
             #endregion
 
             #region List the names of all customers from London.
@@ -95,49 +97,208 @@ namespace Northwind
             //    Console.WriteLine(manager);
             #endregion
 
-            // Find products that are discontinued.
+            #region Find products that are discontinued.
+            //var discontinuedProducts = Products.Where(p => p.Discontinued);
 
-            // Retrieve the names and phone numbers of all suppliers.
+            //foreach (var product in discontinuedProducts)
+            //{
+            //    Console.WriteLine(product);
+            //}
+            #endregion
 
-            // Get all orders placed in the year 1996.
+            #region Retrieve the names and phone numbers of all suppliers.
+            //var suppliers = Suppliers.Select(s => new { name = s.CompanyName, PhoneNumber = s.Phone });
 
-            // Find all customers in the "USA".
+            //foreach (var supplier in suppliers)
+            //{
+            //    Console.WriteLine(supplier);
+            //}
+            #endregion
 
-            // List products that belong to category "Beverages".
+            #region Get all orders placed in the year 1996.
+            //var orders = Orders.Where(o => o.OrderDate.Year == 1996);
 
-            // Retrieve orders with a freight cost less than 10.
+            //foreach (var order in orders)
+            //{
+            //    Console.WriteLine(order);
+            //}
+            #endregion
 
-            // Get the names and titles of all employees.
+            #region  Find all customers in the "USA".
+            //var usaCustomers = Customers.Where(c => c.Country == "USA");
 
-            // Find suppliers from "Germany".
+            //foreach (var customer in usaCustomers)
+            //{
+            //    Console.WriteLine(customer);
+            //}
+            #endregion
 
-            // List all products with quantities between 10 and 50.
+            #region  List products that belong to category "Beverages".
+            //var products = Products.Join(Categories,
+            //    p => p.CategoryID,
+            //    c => c.CategoryID,
+            //    (p, c) => new { Product = p, Category = c })
+            //    .Where(x => x.Category.CategoryName == "Beverages")
+            //    .Select(x => x.Product);
 
-            // Retrieve orders that were shipped but not yet delivered.
+            //foreach (var product in products)
+            //{
+            //    Console.WriteLine(product);
+            //}
+            #endregion
 
-            // Get the total number of products in each category.
+            #region Retrieve orders with a freight cost less than 10.
+            //var orders = Orders.Where(o => o.Freight < 10);
 
-            // List all orders placed by employee with ID 5.
+            //foreach (var item in orders)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Find the name of the supplier with the highest ID.
+            #region Get the names and titles of all employees.
+            //var employees = Employees.Select(e => new { Name = e.FirstName + ' ' + e.LastName, Title = e.Title });
 
-            // Retrieve products that have "Box" in their quantity per unit description.
+            //foreach (var item in employees)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // List all customers from "Germany".
+            #region Find suppliers from "Germany".
+            //var suppliers = Suppliers.Where(s => s.Country == "Germany");
 
-            // Find all products that have never been ordered.
+            //foreach (var item in suppliers)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Get all orders with a freight cost greater than 50.
+            #region List all products with quantities between 10 and 50.
+            //var products = Products.Where(p => p.UnitsInStock >= 10 && p.UnitsInStock <= 50);
 
-            // Retrieve names of all categories.
+            //foreach (var item in products)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // List all orders where the ship city is "Seattle".
+            #region Retrieve orders that were shipped but not yet delivered.
+            //var orders = Orders.Where(o => o.ShippedDate.HasValue && o.ShippedDate < o.RequiredDate);
 
-            // Find the employees who have "Sales" in their title.
+            //foreach (var item in orders)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Retrieve orders that were placed in the month of June.
+            #region Get the total number of products in each category.
+            //var productsGroupedByCategories = Products.GroupBy(p => p.CategoryID).Select(g => new { CategoryId = g.Key, ProductCount = g.Count() });
 
-            // Get the names and phone numbers of suppliers from "Italy".
+            //foreach (var item in productsGroupedByCategories)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region List all orders placed by employee with ID 5.
+            //var ordersByEmploee5 = Orders.Where(o=>o.EmployeeID == 5);
+
+            //foreach (var item in ordersByEmploee5)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Find the name of the supplier with the highest ID.
+            //int maxId = Suppliers.Max(s => s.SupplierID);
+
+            //var supplierNameWithMaxId=Suppliers.Where(s=> s.SupplierID == maxId).Select(s => s.CompanyName).FirstOrDefault();
+            //Console.WriteLine(supplierNameWithMaxId);
+            #endregion
+
+            #region Retrieve products that have "Box" in their quantity per unit description.
+            //var products = Products.Where(p => p.QuantityPerUnit.ToLower().Contains("box"));
+
+            //foreach (var item in products)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region  List all customers from "Germany".
+            //var customers = Customers.Where(c => c.Country == "Germany");
+
+            //foreach (var item in customers)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Find all products that have never been ordered.
+            //var orderedProductsIds = OrderDetails.Select(od => od.ProductID).Distinct().ToList();
+
+            //var neverOrderdProducts = Products.Where(p => !orderedProductsIds.Contains(p.ProductID));
+
+            //foreach (var item in neverOrderdProducts)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Get all orders with a freight cost greater than 50.
+            //var orderes = Orders.Where(o => o.Freight > 50);
+
+            //foreach (var item in orderes)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Retrieve names of all categories.
+            //var CategoriesNames = Categories.Select(c => c.CategoryName);
+
+            //foreach (var item in CategoriesNames)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region List all orders where the ship city is "Seattle".
+            //var orders = Orders.Where(o => o.ShipCity == "Seattle");
+
+            //foreach (var item in orders)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Find the employees who have "Sales" in their title.
+            //var employees = Employees.Where(e => e.Title.ToLower().Contains("sales"));
+
+            //foreach (var item in employees)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Retrieve orders that were placed in the month of June.
+            //var JuneOrderes = Orders.Where(o => o.OrderDate.Month == 6);
+
+            //foreach (var item in JuneOrderes)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
+
+            #region Get the names and phone numbers of suppliers from "Italy".
+            //var suppliers = Suppliers.Where(s => s.Country == "Italy").Select(s => new { name = s.CompanyName, phone = s.Phone });
+
+            //foreach (var item in suppliers)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
             // List all products with unit prices less than 20.
 
