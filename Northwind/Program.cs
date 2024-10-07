@@ -645,65 +645,177 @@ namespace Northwind
             //}
             #endregion
 
-            // Get all categories that do not have any discontinued products.
+            #region Get all categories that do not have any discontinued products.
+            //var categoriesIds = new HashSet<int?>(
+            //    Products.GroupBy(p => p.CategoryID).Where(g => g.All(x => !x.Discontinued)).Select(g => g.Key));
 
-            // List all customers who have a region specified.
+            //var categories= Categories.Where(c=>categoriesIds.Contains(c.CategoryID));
 
-            // Retrieve products where the unit price is greater than the average unit price.
+            //foreach (var item in categories)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Find the supplier with the most products.
+            #region List all customers who have a region specified.
+            //var customers = Customers.Where(c => !string.IsNullOrEmpty(c.Region));
 
-            // Get all orders where the order date is after January 1, 1996.
+            //foreach (var item in customers)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // List products with a unit price that is a multiple of 5.
+            #region Retrieve products where the unit price is greater than the average unit price.
+            //var products = Products.Where(p => p.UnitPrice > Products.Average(p => p.UnitPrice));
 
-            // Retrieve the names of customers who have placed at least 3 orders.
+            //foreach (var item in products)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Find all orders shipped by "United Package".
+            #region Find the supplier with the most products.
+            //var supplierId = Products.GroupBy(p => p.SupplierID).OrderByDescending(g => g.Count()).Select(g => g.Key).FirstOrDefault();
+            //var suppleier=Suppliers.FirstOrDefault(s=>s.SupplierID == supplierId);
 
-            // Get the details of orders that were shipped in "Paris".
+            //Console.WriteLine(suppleier);
+            #endregion
 
-            // List products that have been discontinued and have a unit price greater than $30.
+            #region Get all orders where the order date is after January 1, 1996.
+            //var orders = Orders.Where(o => o.OrderDate > new DateTime(1996-1-1));
 
-            // Retrieve employees who have not shipped any orders.
+            //foreach (var item in orders)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Find customers who have orders with a discount applied.
+            #region List products with a unit price that is a multiple of 5.
+            //var products = Products.Where(p => p.UnitPrice % 5 == 0);
+            #endregion
 
-            // Get the top 3 most expensive products.
+            #region Retrieve the names of customers who have placed at least 3 orders.
+            //var customerIds = Orders.GroupBy(o => o.CustomerID).Where(g => g.Count() >= 3).Select(g => g.Key).Distinct();
 
-            // List all suppliers with a home page.
+            //var customers = Customers.Where(c => customerIds.Contains(c.CustomerID));
+            #endregion
 
-            // Retrieve orders where the freight cost is between $10 and $50.
+            #region Find all orders shipped by "United Package".
+            //var orders = Orders.Join(Shippers,
+            //    o => o.ShipVia,
+            //    sh => sh.ShipperID,
+            //    (o, sh) => new { order = o, shipper = sh })
+            //    .Where(x => x.shipper.CompanyName == "United Package")
+            //    .Select(x => x.order);
 
-            // Find products supplied by a supplier with the name "Exotic Liquids".
+            #endregion
 
-            // Get all orders that were required before the order date.
+            #region  Get the details of orders that were shipped in "Paris".
+            //var orders = Orders.Where(o => o.ShipCity == "Paris");
+            #endregion
 
-            // List products that have been ordered at least once in each year of the 1990s.
+            #region List products that have been discontinued and have a unit price greater than $30.
+            //var products = Products.Where(p => p.Discontinued && p.UnitPrice > 30);
+            #endregion
 
-            // Retrieve all orders where the ship city is "Seattle" or "Portland".
+            #region  Retrieve employees who have not shipped any orders.
+            //var employeesIds = Orders.Select(o => o.EmployeeID).Distinct();
 
-            // Find employees who have more than one phone number listed.
+            //var employees=Employees.Where(e=>!employeesIds.Contains(e.EmployeeID));
+            #endregion
 
-            // Get the details of orders placed by the customer "ANATR".
+            #region  Find customers who have orders with a discount applied.
+            //var customersIds = Orders.Join(OrderDetails,
+            //    o => o.OrderID,
+            //    od => od.OrderID,
+            //    (o, od) => new { order = o, orderDetials = od })
+            //    .Where(x => x.orderDetials.Discount > 0)
+            //    .Select(x => x.order.CustomerID)
+            //    .Distinct();
 
-            // List products with a quantity per unit description that includes "can".
+            //var customers= Customers.Where(c=>customersIds.Contains(c.CustomerID));
 
-            // Retrieve the names of all customers who have their contact name starting with "A".
+            #endregion
 
-            // Find all products with a unit price between $15 and $25.
+            #region Get the top 3 most expensive products.
+            //var products = Products.OrderByDescending(p => p.UnitPrice).Take(3);
+            #endregion
 
-            // Get all orders that were shipped in the year 1997 but required before 1996.
+            #region List all suppliers with a home page.
+            //var suppliers = Suppliers.Where(s => string.IsNullOrEmpty(s.HomePage));
+            #endregion
+
+            #region  Retrieve orders where the freight cost is between $10 and $50.
+            //var orders = Orders.Where(o => o.Freight >= 10 && o.Freight <= 50);
+            #endregion
+
+            #region  Find products supplied by a supplier with the name "Exotic Liquids".
+            //var products = Products.Join(Suppliers,
+            //    p => p.SupplierID,
+            //    s => s.SupplierID,
+            //    (p, s) => new { product = p, supplier = s })
+            //    .Where(x => x.supplier.CompanyName == "Exotic Liquids")
+            //    .Select(x => x.product);
+            #endregion
+
+            #region  Get all orders that were required before the order date.
+            //var orders = Orders.Where(o => o.RequiredDate < o.OrderDate);
+            #endregion
+
+            #region List products that have been ordered at least once in each year of the 1990s.
+
+            #endregion
+
+            #region Retrieve all orders where the ship city is "Seattle" or "Portland".
+            //var orders = Orders.Where(o => o.ShipCity == "Seattle" || o.ShipCity == "Portland");
+            #endregion
+
+            #region Find employees who have more than one phone number listed.
+            //var employeesWithMultiplePhoneNumbers = Employees
+            //  .Where(e => !string.IsNullOrEmpty(e.HomePhone) && !string.IsNullOrEmpty(e.Extension));
+            #endregion
+
+            #region Get the details of orders placed by the customer "ANATR".
+            //var ordersIds = Orders.Join(Customers,
+            //    o => o.CustomerID,
+            //    c => c.CustomerID,
+            //    (o, c) => new { order = o, customer = c })
+            //    .Where(x => x.customer.CompanyName == "ANATR")
+            //    .Select(x => x.order.OrderID);
+
+            //var orderDetails=OrderDetails.Where(od=>ordersIds.Contains(od.OrderID));
+            #endregion
+
+            #region List products with a quantity per unit description that includes "can".
+            //var products = Products.Where(p => p.QuantityPerUnit.ToLower().Contains("can"));
+            #endregion
+
+            #region Retrieve the names of all customers who have their contact name starting with "A".
+            //var customers = Customers.Where(c => c.ContactName.StartsWith("A")).Select(c => c.CompanyName);
+            #endregion
+
+            #region Find all products with a unit price between $15 and $25.
+            //var products = Products.Where(p => p.UnitPrice >= 15 && p.UnitPrice <= 25);
+            #endregion
+
+            #region Get all orders that were shipped in the year 1997 but required before 1996.
+            //var orders = Orders.Where(o => o.ShippedDate.HasValue ? o.ShippedDate.Value.Year == 1997 : false && o.RequiredDate.Year < 1996);
+            #endregion
 
             // List all categories with at least one product that is not discontinued.
 
-            // Retrieve the names of suppliers who do not have a fax number.
+            #region  Retrieve the names of suppliers who do not have a fax number.
+            //var suppliers = Suppliers.Where(s => string.IsNullOrEmpty(s.Fax)).Select(s => s.CompanyName);
+            #endregion
 
             // Find customers who live in cities starting with "S".
 
             // Get the total number of products for each supplier.
 
-            // List all orders where the freight cost is exactly $15.
+            #region List all orders where the freight cost is exactly $15.
+            //var orders = Orders.Where(o => o.Freight == 15);
+            #endregion
 
             // Retrieve employees who have a title containing "Manager".
 
