@@ -803,44 +803,85 @@ namespace Northwind
             //var orders = Orders.Where(o => o.ShippedDate.HasValue ? o.ShippedDate.Value.Year == 1997 : false && o.RequiredDate.Year < 1996);
             #endregion
 
-            // List all categories with at least one product that is not discontinued.
+            #region List all categories with at least one product that is not discontinued.
+            //var categoriesIds = Products.GroupBy(p => p.CategoryID).Where(g => g.Any(p => !p.Discontinued)).Select(g => g.Key);
+
+            //var categories = Categories.Where(c=>categoriesIds.Contains(c.CategoryID));
+            #endregion
+
 
             #region  Retrieve the names of suppliers who do not have a fax number.
             //var suppliers = Suppliers.Where(s => string.IsNullOrEmpty(s.Fax)).Select(s => s.CompanyName);
             #endregion
 
-            // Find customers who live in cities starting with "S".
+            #region  Find customers who live in cities starting with "S".
+            //var customers = Customers.Where(c => c.City.StartsWith('S'));
+            #endregion
 
-            // Get the total number of products for each supplier.
+            #region Get the total number of products for each supplier
+            //var productsNumber = Products.GroupBy(p => p.SupplierID).Select(g => new {supplierID=g.Key , productsNumber= g.Count() });
+            #endregion
 
             #region List all orders where the freight cost is exactly $15.
             //var orders = Orders.Where(o => o.Freight == 15);
             #endregion
 
-            // Retrieve employees who have a title containing "Manager".
+            #region Retrieve employees who have a title containing "Manager".
+            //var employees = Employees.Where(e => e.Title.ToLower().Contains("manager"));
+            #endregion
 
-            // Find products with a unit price that is not an integer.
+            #region Find products with a unit price that is not an integer.
+            //var products = Products
+            //    .Where(p => p.UnitPrice % 1 != 0);
+            #endregion
 
-            // Get the names of all employees whose last name is "Davies".
+            #region Get the names of all employees whose last name is "Davies".
+            //var employees = Employees.Where(e => e.LastName == "Davies").Select(e => e.FirstName);
+            #endregion
 
-            // List all orders shipped by "Federal Shipping".
+            #region List all orders shipped by "Federal Shipping".
+            //var shipperId = Shippers.FirstOrDefault(sh => sh.CompanyName == "Federal Shipping")?.ShipperID;
 
-            // Retrieve products with a unit price less than $25 and greater than $10.
+            //var orders=Orders.Where(o=>o.ShipVia == shipperId);
+            #endregion
 
-            // Find all customers with the same city as "Berlin".
+            #region Retrieve products with a unit price less than $25 and greater than $10.
+            //var products = Products.Where(p => p.UnitPrice < 25 && p.UnitPrice > 10);
 
-            // Get the details of orders where the required date is within a week of the order date.
+            #endregion
 
-            // List all products that have been ordered but have a quantity per unit of "6 boxes".
+            #region Find all customers with the same city as "Berlin".
+            //var customers = Customers.Where(c => c.City == "Berlin");
+            #endregion
+
+            #region Get the details of orders where the required date is within a week of the order date.
+            //var ordersIds = Orders.Where(o => Math.Abs((o.RequiredDate - o.OrderDate).Days) <= 7).Select(o => o.OrderID);
+
+            //var orderDetails=OrderDetails.Where(od=>ordersIds.Contains(od.OrderID));
+            #endregion
+
+            #region List all products that have been ordered but have a quantity per unit of "6 boxes".
+            //var products = Products.Where(p => p.QuantityPerUnit.ToLower().Contains("6 boxes"));
+            #endregion
 
             #endregion Easy
 
             #region Medium
-            // List all products whose unit price is higher than the average unit price of all products.
 
-            // Retrieve the top 5 customers who have placed the highest number of orders.
+            #region List all products whose unit price is higher than the average unit price of all products.
+            //var products= Products.Where(p=>p.UnitPrice> Products.Average(p=>p.UnitPrice));
+            #endregion
 
-            // Find all employees who have processed orders in more than 3 different countries.
+            #region Retrieve the top 5 customers who have placed the highest number of orders.
+            //var customersIds = Orders.GroupBy(o => o.CustomerID).OrderByDescending(g => g.Count()).Select(g => g.Key);
+
+            //var customers = Customers.Where(c=>customersIds.Contains(c.CustomerID));
+            #endregion
+
+            #region Find all employees who have processed orders in more than 3 different countries.
+            //var employeesIds = Orders.GroupBy(o => o.EmployeeID).Where(g.Select(o => o.ShipCountry).Distinct().Count() > 3).Select(g => g.Key);
+            //var employees= Employees.Where(e=>employeesIds.Contains(e.EmployeeID));
+            #endregion
 
             // Get the total number of orders shipped by each shipper.
 
