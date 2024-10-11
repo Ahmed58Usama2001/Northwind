@@ -883,33 +883,104 @@ namespace Northwind
             //var employees= Employees.Where(e=>employeesIds.Contains(e.EmployeeID));
             #endregion
 
-            // Get the total number of orders shipped by each shipper.
+            #region Get the total number of orders shipped by each shipper.
+            //var countOfOrdersPerShipper = Orders.GroupBy(o => o.ShipVia).Select(g => new { shipper = g.Key, NoOrders = g.Count() });
+            #endregion
 
-            // List all products that have been ordered more than the average quantity ordered per product.
+            #region  List all products that have been ordered more than the average quantity ordered per product.
+            //var averageQuantityOrdered = OrderDetails.Average(od => od.Quantity);
 
-            // Retrieve the names of all customers who have ordered products from more than 5 different categories.
+            //var productsIds= OrderDetails.GroupBy(g=>g.ProductID).Where(g=>g.Sum(g=>g.Quantity) > averageQuantityOrdered).Select(g=>g.Key);
 
-            // Find suppliers that have provided products in more than 3 different categories.
+            //var products = Products.Where(p=>productsIds.Contains(p.ProductID));
+            #endregion
 
-            // Get the details of the order with the maximum freight cost.
+            #region Retrieve the names of all customers who have ordered products from more than 5 different categories.   
+            #endregion
 
-            // List all employees who have shipped orders to more than 10 different cities.
+            #region  Find suppliers that have provided products in more than 3 different categories.
+            //var suppliersIds = Products.GroupBy(p => p.SupplierID)
+            //    .Where(g => g.Select(p => p.CategoryID).Distinct().Count() > 3)
+            //    .Select(g => g.Key);
 
-            // Retrieve all orders that were placed by customers from the same country as the employee who processed them.
+            //var suppliers = Suppliers.Where(s=>suppliersIds.Contains(s.SupplierID));
+            #endregion
 
-            // Find the products that have the highest average discount applied.
+            #region Get the details of the order with the maximum freight cost.
+            //var orderId = Orders.OrderByDescending(o => o.Freight).Select(o => o.OrderID).FirstOrDefault();
+            //var orderDetail = OrderDetails.FirstOrDefault(od => od.OrderID == orderId);
+            #endregion
 
-            // Get the total number of products supplied by each supplier.
+            #region List all employees who have shipped orders to more than 10 different cities.
+            //var employeesIds = Orders.GroupBy(e => e.EmployeeID)
+            //    .Where(g => g.Select(o => o.ShipCity).Distinct().Count() > 10).Select(g => g.Key);
 
-            // List all orders where the total freight cost exceeds the average freight cost of all orders.
+            //var employees = Employees.Where(e=>employeesIds.Contains(e.EmployeeID));
+            #endregion
 
-            // Retrieve the names and addresses of all customers who have not placed any orders.
+            #region Retrieve all orders that were placed by customers from the same country as the employee who processed them.
+            //var customersIds = Customers.Join(Employees,
+            //    c => c.Country,
+            //    e => e.Country,
+            //    (c, e) => c.CustomerID);
 
-            // Find the employee with the most recent hire date.
+            //var orderCustomersIds= Orders.Where(o=>customersIds.Contains(o.CustomerID)).Select(o=> o.CustomerID);
 
-            // Get all orders that were shipped on the same date they were ordered.
+            //var orders = Orders.Where(o => orderCustomersIds.Contains(o.CustomerID));
+            #endregion
 
-            // List all products with a unit price that is greater than the median unit price.
+            #region Find the products that have the highest average discount applied.
+            //var  productWithHighestAvgDiscount = OrderDetails
+            // .GroupBy(od => od.ProductID) 
+            // .Select(g => new
+            // {
+            //     ProductID = g.Key,
+            //     AvgDiscount = g.Average(od => od.Discount) 
+            // })
+            // .OrderByDescending(p => p.AvgDiscount) 
+            // .FirstOrDefault();
+            #endregion
+
+            #region Get the total number of products supplied by each supplier.
+            //var supplierProductCounts = Products
+            //.GroupBy(p => p.SupplierID) 
+            //.Select(g => new
+            //{
+            //    SupplierID = g.Key,
+            //    ProductCount = g.Count() 
+            //});
+            #endregion
+
+            #region List all orders where the total freight cost exceeds the average freight cost of all orders.
+            //var orders = Orders.Where(o => o.Freight > Orders.Average(o => o.Freight));
+            #endregion
+
+            #region Retrieve the names and addresses of all customers who have not placed any orders.
+            //var customersIds = Orders.Select(o => o.CustomerID).Distinct();
+
+            //var customers = Customers.Where(c=>!customersIds.Contains(c.CustomerID));
+            #endregion
+
+            #region Find the employee with the most recent hire date.
+            //var employee = Employees.OrderByDescending(e => e.HireDate).FirstOrDefault();
+            #endregion
+
+            #region Get all orders that were shipped on the same date they were ordered.
+            //var orders = Orders.Where(o => o.OrderDate == o.ShippedDate);
+            #endregion
+
+            #region  List all products with a unit price that is greater than the median unit price.
+            //var sortedProducts = Products.OrderBy(p=>p.UnitPrice).ToList();
+            //int count = sortedProducts.Count();
+            //decimal medianUnitPrice=0;
+
+            //if (count % 2 == 0)
+            //    medianUnitPrice = (decimal)(sortedProducts[count / 2 - 1].UnitPrice + sortedProducts[count / 2].UnitPrice);
+            //else
+            //    medianUnitPrice = (decimal)sortedProducts[count / 2].UnitPrice;
+
+            //var products = Products.Where(p => p.UnitPrice > medianUnitPrice);
+            #endregion
 
             // Retrieve the average freight cost for each shipper.
 
