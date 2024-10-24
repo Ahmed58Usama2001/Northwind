@@ -982,35 +982,134 @@ namespace Northwind
             //var products = Products.Where(p => p.UnitPrice > medianUnitPrice);
             #endregion
 
-            // Retrieve the average freight cost for each shipper.
+            #region Retrieve the average freight cost for each shipper.
+            //var averageFreight = Orders
+            //.GroupBy(o => o.ShipVia)
+            //.Select(g => new
+            //{
+            //    shipperId = g.Key,
+            //    averageFreight = g.Average(o => o.Freight)
+            //})
+            //.Join(Shippers,
+            //      avg => avg.shipperId,
+            //      s => s.ShipperID,
+            //      (avg, s) => new
+            //      {
+            //          ShipperName = s.CompanyName,
+            //          AverageFreight = avg.averageFreight
+            //      });
+            #endregion
 
-            // Find suppliers that have their contact title starting with "Sales".
+            #region Find suppliers that have their contact title starting with "Sales".
+            //var suppleiers = Suppliers.Where(s => s.ContactTitle.ToLower().StartsWith("sales"));
+            #endregion
 
-            // Get the names of all customers who have ordered products with a unit price greater than $100.
+            #region Get the names of all customers who have ordered products with a unit price greater than $100.
+            //var customerIds = Orders.Join(OrderDetails,
+            //    o => o.OrderID,
+            //    od => od.OrderID,
+            //    (order, orderDetail) => new { Order = order, OrderDetail = orderDetail })
+            //    .Where(x => x.OrderDetail.UnitPrice > 100)
+            //    .Select(x => x.Order.CustomerID);
 
-            // List products that have a reorder level higher than the average reorder level of all products.
+            //var customers = Customers.Where(c=>customerIds.Contains(c.CustomerID));
+            #endregion
 
-            // Retrieve the top 3 cities with the most customers.
+            #region  List products that have a reorder level higher than the average reorder level of all products.
+            //var averageOrdrLevelForProducts = Products.Average(p => p.ReorderLevel);
 
-            // Find orders that have a freight cost below the average freight cost for the year 1997.
+            //var products = Products.Where(p=>p.ReorderLevel > averageOrdrLevelForProducts).ToList();
+            #endregion
 
-            // Get the details of the orders shipped by "Speedy Express" in 1996.
+            #region Retrieve the top 3 cities with the most customers.
+            //var cities = Customers.GroupBy(c => c.City).OrderBy(g => g.Count()).Select(g => g.Key).Take(3).ToList();
 
-            // List all products with a quantity per unit that contains the word "Pack".
+            #endregion
 
-            // Retrieve the names of employees who have processed orders in more than 2 different regions.
+            #region Find orders that have a freight cost below the average freight cost for the year 1997.
+            //var average = Orders.Where(o=>o.OrderDate.Year == 1997).Average(o=>o.Freight);
 
-            // Find the supplier with the most products that have been ordered more than 50 times.
+            //var orders = Orders.Where(o => o.Freight < average);
+            #endregion
 
-            // Get the total sales amount for each customer.
+            #region Get the details of the orders shipped by "Speedy Express" in 1996.
+            //var oDetails = Orders.Where(o=>o.ShipName== "Speedy Express" && o?.ShippedDate.Value.Year == 1996).Join(OrderDetails,
+            //    o=>o.OrderID , 
+            //    od=>od.OrderID,
+            //    (o,od)=>new {Order=o , OrderDetails=od })
+            //    .Select(x=>x.OrderDetails).ToList();
+            #endregion
 
-            // List all customers who have their postal code starting with "9" and have ordered products from more than 3 different categories.
+            #region List all products with a quantity per unit that contains the word "Pack".
+            //var products = Products.Where(p=>p.QuantityPerUnit.Contains("Pack")).ToList();
+            #endregion
 
-            // Retrieve the average unit price of products in the "Beverages" category.
+            #region Retrieve the names of employees who have processed orders in more than 2 different regions.
+            //var employeesIds = Orders.GroupBy(o=>o.EmployeeID).Where(g=>g.Select(g=>g.ShipRegion).Distinct().Count()>2).Select(g=>g.Key).ToList();
 
-            // Find the product with the highest unit price and list its supplier details.
+            //var employeesNames = Employees.Where(e=>employeesIds.Contains(e.EmployeeID)).Select(e=>e.FirstName+ " "+e.LastName).ToList();
+            #endregion
 
-            // Get all orders that were placed by customers who have the same contact name as the employee who processed them.
+            #region Find the supplier with the most products that have been ordered more than 50 times.
+            //var productIdsOrderedMoreThan50 = OrderDetails
+            //    .GroupBy(od => od.ProductID)
+            //    .Where(g => g.Count() > 50) 
+            //    .Select(g => g.Key)
+            //    .ToList();
+
+            //var supplierWithMostProducts = Products
+            //.Where(p => productIdsOrderedMoreThan50.Contains(p.ProductID)) 
+            //.GroupBy(p => p.SupplierID) 
+            //.OrderByDescending(g => g.Count()) 
+            //.Select(g => new { SupplierID = g.Key, ProductCount = g.Count() })
+            //.FirstOrDefault();
+
+            //var supplier = Suppliers.FirstOrDefault(s => s.SupplierID == supplierWithMostProducts?.SupplierID);
+            #endregion
+
+            #region List all customers who have their postal code starting with "9" and have ordered products from more than 3 different categories.
+            //var customersWithPostalCodeStartingWith9 = Customers
+            //    .Where(c => c.PostalCode.StartsWith("9"))
+            //    .Select(c => c.CustomerID)
+            //    .ToList();
+
+            //var customersWithMoreThan3Categories = Orders
+            //    .Where(o => customersWithPostalCodeStartingWith9.Contains(o.CustomerID)) 
+            //    .Join(OrderDetails, o => o.OrderID, od => od.OrderID, (o, od) => new { o.CustomerID, od.ProductID })
+            //    .Join(Products, od => od.ProductID, p => p.ProductID, (od, p) => new { od.CustomerID, p.CategoryID })
+            //    .GroupBy(x => x.CustomerID) 
+            //    .Where(g => g.Select(x => x.CategoryID).Distinct().Count() > 3) 
+            //    .Select(g => g.Key)
+            //    .ToList();
+
+            //var resultCustomers = Customers.Where(c => customersWithMoreThan3Categories.Contains(c.CustomerID));
+            #endregion
+
+            #region Retrieve the average unit price of products in the "Beverages" category.
+            //var categoryId = Categories.FirstOrDefault(c => c.CategoryName == "Beverages")?.CategoryID;
+            //var average = Products.Where(p => p.CategoryID == categoryId).Average(p => p.UnitPrice);
+            #endregion
+
+
+            #region Find the product with the highest unit price and list its supplier details.
+
+            //var supplierId = Products.OrderByDescending(p=>p.UnitPrice).FirstOrDefault()?.SupplierID;
+            //var supplier = Suppliers.FirstOrDefault(s=>s.SupplierID == supplierId);
+            #endregion
+
+            #region  Get all orders that were placed by customers who have the same contact name as the employee who processed them.
+            //var orders = Orders.Join(Customers,
+            //    o => o.CustomerID,
+            //    c => c.CustomerID,
+            //    (o, c) => new { order = o, Customer = c })
+            //    .Join(Employees,
+            //    x => x.order.EmployeeID,
+            //    e => e.EmployeeID,
+            //    (x, e) => new { x = x, Employee = e })
+            //    .Where(xx => xx.Employee.FirstName + " " + xx.Employee.LastName == xx.x.Customer.ContactName)
+            //    .Select(xx => xx.x.order).ToList();
+
+            #endregion
 
             // List the names of customers and the number of orders they have placed in the year 1996.
 
