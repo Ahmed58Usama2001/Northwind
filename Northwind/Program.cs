@@ -1185,13 +1185,40 @@ namespace Northwind
             //    .ToList();
             #endregion
 
-            // Get the total freight cost for each shipper and list them in ascending order.
+            #region Get the total freight cost for each shipper and list them in ascending order.
+            //var x = Orders.GroupBy(o => o.ShipVia).Select(g => new {g.Key , totalFreight=g.Select(o=>o.Freight).Sum()}).OrderBy(x=>x.totalFreight).ToList();
+            #endregion
 
-            // List all categories that have at least one product with a unit price above the average for its category.
+            #region  List all categories that have at least one product with a unit price above the average for its category.
+            //var categories = Products.GroupBy(p=>p.CategoryID).Where(g=>g.Any(p=>p.UnitPrice>g.Average(p=>p.UnitPrice)))
+            //    .Join(Categories,
+            //    g=>g.Key,
+            //    c=>c.CategoryID,
+            //    (g,c)=>c.CategoryName)
+            //    .ToList();
 
-            // Retrieve the names and addresses of suppliers who have shipped products to "Paris".
+            #endregion
 
-            // Find the customers with the highest average order amount.
+            #region Retrieve the names and addresses of suppliers who have shipped products to "Paris".
+            //var suppliers = Orders.Where(o => o.ShipCity == "Paris")
+            //    .Join(OrderDetails,
+            //    o => o.OrderID,
+            //    od => od.OrderID,
+            //    (o, od) => od.ProductID)
+            //    .Distinct()
+            //    .Join(Products,
+            //    pid => pid,
+            //    p => p.ProductID,
+            //    (o, p) => p.SupplierID)
+            //    .Distinct()
+            //    .Join(Suppliers,
+            //    sid => sid,
+            //    s => s.SupplierID,
+            //    (sid, s) => new { SuppplierName = s.CompanyName, SupplierAddress = s.Address })
+            //    .ToList();
+               
+            #endregion
+
 
             // Get all products that have a unit price less than the average unit price and have never been discontinued.
 
