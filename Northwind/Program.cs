@@ -1111,27 +1111,79 @@ namespace Northwind
 
             #endregion
 
-            // List the names of customers and the number of orders they have placed in the year 1996.
+            #region List the names of customers and the number of orders they have placed in the year 1996.
+            //var x = Orders.Where(o => o.OrderDate.Year == 1996).GroupBy(o => o.CustomerID).Select(g => new {customerId = g.Key , NoOfOrders=g.Count() })
+            //    .Join(Customers,
+            //    co=>co.customerId,
+            //    c=>c.CustomerID,
+            //    (co, c) => new {CustomerName=c.ContactName, NoOfOrdersIn1996=co.NoOfOrders}).ToList();
 
-            // Retrieve all products with a unit price greater than $30 and with quantities in stock less than the average.
+            #endregion
 
-            // Find all employees who have processed orders with a total freight cost above $100.
+            #region Retrieve all products with a unit price greater than $30 and with quantities in stock less than the average.
+            //var average = Products.Average(p=>p.UnitsInStock);
 
-            // Get the total number of products in each category and list them in descending order.
+            //var products = Products.Where(p=>p.UnitPrice>30 && p.UnitsInStock<average).ToList();
+            #endregion
 
-            // List all orders where the total freight cost is above the average freight cost for orders shipped by "United Package".
+            #region  Find all employees who have processed orders with a total freight cost above $100.
+            //var employeesIds = Orders.GroupBy(o=>o.EmployeeID).Where(g=>g.Sum(o=>o.Freight)>100).Select(g=>g.Key);
 
-            // Retrieve the names of suppliers who have provided products in the "Seafood" category.
+            //var employees = Employees.Where(e=>employeesIds.Contains(e.EmployeeID));
+            #endregion
 
-            // Find all products that have been ordered in the last 6 months.
+            #region Get the total number of products in each category and list them in descending order.
+            //var products = Products.GroupBy(p => p.CategoryID).OrderByDescending(g => g.Count()).Select(g => new {CategoryId =  g.Key , NoOfProd=g.Count()}).ToList();\\
+            #endregion
 
-            // Get the names of customers who have ordered products supplied by more than 5 different suppliers.
+            #region List all orders where the total freight cost is above the average freight cost for orders shipped by "United Package".
+            //var averageForUPOrders = Orders.Where(o => o.ShipName == "United Package").Average(o => o.Freight);
+            //var orders = Orders.Where(o=>o.Freight>averageForUPOrders).ToList();
+            #endregion
 
-            // List the total number of orders placed by each customer and sort by descending order count.
+            #region Retrieve the names of suppliers who have provided products in the "Seafood" category.
+            //var categoryId = Categories.FirstOrDefault(c => c.CategoryName == "Seafood")?.CategoryID;
 
-            // Retrieve employees who have shipped orders to cities in more than 3 different countries.
+            //var suppliersIds = Products.Where(p=>p.CategoryID == categoryId).Select(p=>p.SupplierID).Distinct().ToList();
 
-            // Find the products that are in stock but have never been ordered.
+            //var suppliersNames = Suppliers.Where(s=>suppliersIds.Contains(s.SupplierID)).Select(s=>s.CompanyName).ToList();
+            #endregion
+
+            #region Find all products that have been ordered in the last 6 months.
+            //var productsIds = Orders.Where(o=>DateTime.Now.Month-o.OrderDate.Month<=6)
+            //    .Join(OrderDetails,
+            //    o=>o.OrderID,
+            //    od=>od.OrderID,
+            //    (o, od) => new {Order=o , OrderDetail=od })
+            //    .Select(x=>x.OrderDetail.ProductID).Distinct().ToList();
+
+            //var products= Products.Where(p=>productsIds.Contains(p.ProductID));
+            #endregion
+
+            #region  List the total number of orders placed by each customer and sort by descending order count.
+            //var NoOfOrders = Orders.GroupBy(o=>o.CustomerID).OrderByDescending(g=>g.Count()).Select(g=>new { CustomerId = g.Key, CountOfOrders = g.Count() }).ToList();
+            #endregion
+
+            #region Retrieve employees who have shipped orders to cities in more than 3 different countries.
+            //var employeesIds = Orders.GroupBy(o=>o.EmployeeID).Where(g=>g.Select(o=>o.ShipCountry).Distinct().Count()>3).Select(g=>g.Key).ToList();
+            //var employees = Employees.Select(e=>employeesIds.Contains(e.EmployeeID)).ToList();
+            #endregion
+
+            #region Find the products that are in stock but have never been ordered.
+            //var productIdsInStock = Products.Where(p=>p.UnitsInStock>0).Select(p=>p.ProductID).ToList();
+
+            //var productIdsOrdered = OrderDetails
+            // .Select(od => od.ProductID)
+            // .Distinct();
+
+            //var productIdsNeverOrdered = productIdsInStock
+            //    .Except(productIdsOrdered)
+            //    .ToList();
+
+            //var products = Products
+            //    .Where(p => productIdsNeverOrdered.Contains(p.ProductID))
+            //    .ToList();
+            #endregion
 
             // Get the total freight cost for each shipper and list them in ascending order.
 
