@@ -1216,33 +1216,118 @@ namespace Northwind
             //    s => s.SupplierID,
             //    (sid, s) => new { SuppplierName = s.CompanyName, SupplierAddress = s.Address })
             //    .ToList();
-               
+
             #endregion
 
 
-            // Get all products that have a unit price less than the average unit price and have never been discontinued.
+            #region  Get all products that have a unit price less than the average unit price and have never been discontinued.
+            //var avgUnitP = Products.Average(p=>p.UnitPrice);
 
-            // List all orders where the shipping address is in a country that has more than 3 suppliers.
+            //var products = Products.Where(p=>p.UnitPrice<avgUnitP && !p.Discontinued).ToList();
+            #endregion
 
-            // Retrieve the names of employees who have processed orders for products in the "Snacks" category.
+            #region List all orders where the shipping address is in a country that has more than 3 suppliers.
+            //var countriesWithMoreThan3Suppliers = Suppliers.GroupBy(s=>s.Country).Where(g=>g.Count()>3).Select(g=>g.Key).ToList();
+            //var orders = Orders.Where(o=>countriesWithMoreThan3Suppliers.Contains(o.ShipCountry)).ToList();
+            #endregion
 
-            // Find the suppliers that have their company name containing the word "Deluxe".
+            #region  Retrieve the names of employees who have processed orders for products in the "Snacks" category.
 
-            // Get the details of orders that were shipped to "Tokyo" and have a freight cost above the average.
+            //var categoryId = Categories.Where(c=>c.CategoryName=="Snacks").Select(c=>c.CategoryID).FirstOrDefault();
 
-            // List the products with the highest quantity ordered for each category.
+            //var productsInCategoryIds = Products.Where(p=>p.CategoryID==categoryId).Select(p=>p.ProductID).ToList();
 
-            // Retrieve the names of customers who have not ordered any products from the "Seafood" category.
+            //var ordersIds = OrderDetails.Where(od=>productsInCategoryIds.Contains(od.ProductID)).Select(od=>od.OrderID).ToList();
 
-            // Find all employees who have shipped orders with a total freight cost of less than $20.
+            //var employeesIds = Orders.Where(o=>ordersIds.Contains(o.OrderID)).Select(o=>o.EmployeeID).ToList();
 
-            // Get the total number of orders placed by each customer and filter for those with more than 10 orders.
+            //var employeesNames = Employees.Where(e=>employeesIds.Contains(e.EmployeeID)).Select(e=>e.FirstName+' '+e.LastName).ToList();
 
-            // List all products that are supplied by suppliers with the highest ID.
+            #endregion
 
-            // Retrieve the names and addresses of customers who have ordered products from more than 3 different categories.
+            #region Find the suppliers that have their company name containing the word "Deluxe".
+            //var suppliers = Suppliers.Where(s=>s.CompanyName.Contains("Deluxe")).ToList();
+            #endregion
 
-            // Find the product with the lowest unit price and list its supplier details.
+            #region  Get the details of orders that were shipped to "Tokyo" and have a freight cost above the average.
+            //var averageFreight = Orders.Average(o=>o.Freight);
+            //var ordersIds = Orders.Where(o=>o.ShipCity=="Tokyo" && o.Freight>averageFreight).Select(o=>o.OrderID).ToList();
+            //var ordersDetails = OrderDetails.Where(od=>ordersIds.Contains(od.OrderID)).ToList();
+            #endregion
+
+            #region List the products with the highest quantity ordered for each category.
+            //var ProductQuantities = OrderDetails.GroupBy(od=>od.ProductID).Select(g=>new {ProductId = g.Key , ProductQuantity = g.Sum(od=>od.Quantity) }).ToList();
+
+            //var ProductCategoryQuantity = ProductQuantities.Join(Products,
+            //    pq => pq.ProductId,
+            //    p => p.ProductID,
+            //    (pq, p) =>new
+            //    {
+            //        p.ProductID,
+            //        p.ProductName,
+            //        p.CategoryID,
+            //        pq.ProductQuantity
+            //    }).ToList();
+
+            //var topProductsPerCategory = ProductCategoryQuantity.GroupBy(pcq=>pcq.CategoryID)
+            //    .Select(g=>g.OrderByDescending(g=>g.ProductQuantity).FirstOrDefault()).ToList();
+            #endregion
+
+            #region Retrieve the names of customers who have not ordered any products from the "Seafood" category.
+            //var categoryId = Categories.Where(c=>c.CategoryName=="Seafood").Select(c=>c.CategoryID).FirstOrDefault();
+
+            //var categoryProductsIds = Products.Where(p=>p.CategoryID==categoryId).Select(p=>p.ProductID).ToList();
+
+            //var ordersIds = OrderDetails.Where(od=>categoryProductsIds.Contains(od.ProductID)).Select(od=>od.OrderID).ToList();
+
+            //var CustomersOfCategoryProductsIds = Orders.Where(o=>ordersIds.Contains(o.OrderID)).Select(o=>o.CustomerID).ToList();
+
+            //var customersNames = Customers.Where(c=>!CustomersOfCategoryProductsIds.Contains(c.CustomerID)).Select(c=>c.CompanyName).ToList();
+            #endregion
+
+            #region Find all employees who have shipped orders with a total freight cost of less than $20.
+            //var employeesIds = Orders.GroupBy(o=>o.EmployeeID).Where(g=>g.Sum(g=>g.Freight)<20).Select(g=>g.Key).ToList();
+
+            //var employees = Employees.Where(e=>employeesIds.Contains(e.EmployeeID)).ToList();
+
+            #endregion
+
+            #region Get the total number of orders placed by each customer and filter for those with more than 10 orders.
+            //var ordersPerCustomer = Orders.GroupBy(o => o.CustomerID).Where(g => g.Count() > 10).Select(g => new {customerId=g.Key , NoOfOrders = g.Count()}).ToList();
+            #endregion
+
+            #region  List all products that are supplied by suppliers with the highest ID.
+            //var maxSupplierId = Suppliers.Max(s => s.SupplierID);
+            //var products = Products.Where(p=>p.SupplierID == maxSupplierId).ToList();
+            #endregion
+
+            #region Retrieve the names and addresses of customers who have ordered products from more than 3 different categories.
+
+            //var customersWithMultipleCategories = Orders
+            //.Join(OrderDetails,
+            //      o => o.OrderID,
+            //      od => od.OrderID,
+            //      (o, od) => new { o.CustomerID, od.ProductID })
+            //.Join(Products,
+            //      oc => oc.ProductID,
+            //      p => p.ProductID,
+            //      (oc, p) => new { oc.CustomerID, p.CategoryID })
+            //.GroupBy(c => c.CustomerID)
+            //.Where(g => g.Select(c => c.CategoryID).Distinct().Count() > 3)
+            //.Select(g => g.Key)
+            //.ToList();
+
+            //var customers = Customers
+            //    .Where(c => customersWithMultipleCategories.Contains(c.CustomerID))
+            //    .Select(c => new { c.CompanyName, c.Address })
+            //    .ToList();
+            #endregion
+
+            #region Find the product with the lowest unit price and list its supplier details.
+            //var leastProductPrice = Products.Min(p=>p.UnitPrice);
+            //var supplierId = Products.FirstOrDefault(p => p.UnitPrice == leastProductPrice)?.SupplierID;
+            //var supplier = Suppliers.FirstOrDefault(s => s.SupplierID == supplierId);
+            #endregion
 
             // Get all orders where the order date is before the ship date.
 
@@ -1263,6 +1348,7 @@ namespace Northwind
             // Get the total number of products in stock for each category and sort in ascending order.
 
             // List all products that have a unit price higher than the average for their respective categories.
+            //--------------------------------------------------------------
 
             // Retrieve the names of employees who have shipped orders to customers with a postal code starting with "9".
 
@@ -1283,6 +1369,7 @@ namespace Northwind
             // Retrieve the names of employees who have processed orders for the highest number of products.
 
             // Find the suppliers that have the same contact title as the employee with the most orders.
+            //--------------------------------------------------------------
 
             // Get all orders that were shipped with a discount applied.
 
@@ -1303,6 +1390,7 @@ namespace Northwind
             // Get the total sales amount for each employee and list them in descending order.
 
             // List all products with a unit price greater than the average price in their category and with a reorder level above 10.
+            //--------------------------------------------------------------
 
             // Retrieve the names of customers who have placed orders in every month of 1997.
 
@@ -1348,6 +1436,7 @@ namespace Northwind
             // Retrieve the total number of products ordered for each product and compare it to the total stock quantity.
 
             // Find all products that have a reorder level equal to the maximum reorder level for their category.
+            //--------------------------------------------------------------
 
             // Get the names of all customers who have ordered products from suppliers with more than 5 products.
 
@@ -1368,7 +1457,7 @@ namespace Northwind
             // Get the total number of orders placed by customers who live in cities with more than 3 suppliers.
 
             // List all products that have been ordered by customers from more than 5 different regions.
-
+            //----------------------------
             // Retrieve the names of employees who have shipped orders with the maximum discount applied.
 
             // Find the top 10 products that have been ordered the most in the last 6 months.
@@ -1388,7 +1477,7 @@ namespace Northwind
             // Retrieve the total number of products ordered for each category and sort by descending total quantity.
 
             // Find the orders that have a ship city different from the customer’s city.
-
+            //--------------------------
             // Get the details of the top 5 most recent orders and the names of the employees who processed them.
 
             // List all products with a unit price higher than the average unit price for their supplier.
@@ -1408,7 +1497,7 @@ namespace Northwind
             // Get the names of customers who have placed orders with products that have a unit price higher than the average unit price of products in their category.
 
             // List all products that have been ordered by customers from cities with the top 3 highest order counts.
-
+            //------------------------------
             // Retrieve the names and contact titles of suppliers who have shipped products to "Paris" and "London".
 
             // Find all orders with a freight cost that is above the median freight cost and was shipped by "Speedy Express".
@@ -1428,7 +1517,7 @@ namespace Northwind
             // Retrieve the names of suppliers who have provided products in the "Seafood" category and have a fax number.
 
             // Find the top 5 cities with the highest total order amount and list the number of customers in each city.
-
+            //-----------------------------
             // Get the details of orders where the ship name contains "Express" and the freight cost is above $40.
 
             // List the top 3 most expensive products in each category and retrieve their supplier details.
@@ -1448,7 +1537,7 @@ namespace Northwind
             // Get the details of orders where the ship country is the same as the supplier’s country and the freight cost is above the average.
 
             // List all products that have been ordered by customers in cities with a total order amount greater than $1000.
-
+            //---------------------------------
             // Retrieve the names of suppliers who have provided products with a unit price less than $20 and more than $50.
 
             // Find the categories with products that have never been discontinued and have been ordered in every month of the last year.
@@ -1468,7 +1557,7 @@ namespace Northwind
             // Retrieve the top 5 customers with the highest average discount applied and their total order amount.
 
             // Find the products that have been ordered more than the average quantity ordered for their category and have a unit price above $25.
-
+            //--------------------------------
             // Get the names of suppliers who have provided products with a quantity per unit description containing "Bottle" and "Can".
 
             // List all employees who have shipped orders with a freight cost above the average and have processed orders for customers in more than 3 different countries.
@@ -1488,7 +1577,7 @@ namespace Northwind
             // Get the details of orders where the ship country is "USA" and the order amount is greater than the average order amount for the year 1996.
 
             // List all products with a unit price greater than the average unit price in their category and have been ordered in the last 6 months.
-
+            //------------------------------
             // Retrieve the names of employees who have shipped orders to customers with postal codes starting with "9" and "8" and have processed more than 20 orders.
 
             // Find the top 5 suppliers with the highest total quantity of products supplied and list their contact details.
@@ -1508,7 +1597,7 @@ namespace Northwind
             // Retrieve the names of employees who have processed orders with the maximum number of products ordered and their total freight cost.
 
             // Find the top 3 categories with the highest total quantity of products ordered and list their average unit price.
-
+            //------------------------------
             // Get all orders where the order amount is above the average for orders shipped by "Federal Shipping" and "Speedy Express".
 
             // List all suppliers who have shipped products to "London" and "Paris" and have provided products in the "Beverages" category.
