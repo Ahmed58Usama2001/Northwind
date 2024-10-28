@@ -1329,25 +1329,80 @@ namespace Northwind
             //var supplier = Suppliers.FirstOrDefault(s => s.SupplierID == supplierId);
             #endregion
 
-            // Get all orders where the order date is before the ship date.
+            #region Get all orders where the order date is before the ship date.
+            //var orders = Orders.Where(o=>o.OrderDate<o.ShippedDate).ToList();
 
-            // List all suppliers who have provided products with a unit price above $50.
+            #endregion
 
-            // Retrieve the total freight cost for each order and list in descending order.
+            #region List all suppliers who have provided products with a unit price above $50.
+            //var suppliersIds = Products.Where(p=>p.UnitPrice>50).Select(p=>p.SupplierID).ToList();
+            #endregion
 
-            // Find customers who have placed orders in every month of the year 1996.
+            #region Retrieve the total freight cost for each order and list in descending order.
+            //var orders = Orders.OrderByDescending(o => o.Freight).Select(o => new {OrderId= o.OrderID , Freight = o.Freight}).ToList();
+            #endregion 
 
-            // Get the names of employees who have not shipped orders to "New York".
+            #region Find customers who have placed orders in every month of the year 1996.
+            //var customersIds = Orders.Where(o=>o.OrderDate.Year==1996).GroupBy(o=>o.CustomerID).Where(g=>g.Select(o=>o.OrderDate.Month).Distinct().Count()==12)
+            //    .Select(g=>g.Key).ToList();
 
-            // List all products with a quantity per unit containing the word "Bottle" or "Can".
+            //var customers = Customers.Where(c=>customersIds.Contains(c.CustomerID)).ToList();
+            #endregion
 
-            // Retrieve the names of suppliers who have a contact name containing "James".
+            #region Get the names of employees who have not shipped orders to "New York".
+            //var EmployeesShippedToNewyorkIds = Orders.Where(o=>o.ShipCity=="New York").Select(o=>o.EmployeeID).ToList();
+            //var employess = Employees.Where(e => !EmployeesShippedToNewyorkIds.Contains(e.EmployeeID)).Select(e=>e.FirstName+' '+e.LastName).ToList();
+            #endregion
 
-            // Find all orders that were shipped with a freight cost above the average for orders shipped by "Federal Shipping".
+            #region List all products with a quantity per unit containing the word "Bottle" or "Can".
+            //var products = Products.Where(p=>p.QuantityPerUnit.Contains("Bottle") || p.QuantityPerUnit.Contains("Can")).ToList();
+            #endregion
 
-            // Get the total number of products in stock for each category and sort in ascending order.
+            #region Retrieve the names of suppliers who have a contact name containing "James".
+            //var suppliers = Suppliers.Where(s=>s.ContactName.Contains("James")).Select(s=>s.CompanyName).ToList();
+            #endregion
 
-            // List all products that have a unit price higher than the average for their respective categories.
+            #region Find all orders that were shipped with a freight cost above the average for orders shipped by "Federal Shipping".
+            //var averageFreight = Orders.Average(o=>o.Freight);
+            //var ShipperId = Shippers.FirstOrDefault(sh => sh.CompanyName == "Federal Shipping")?.ShipperID;
+            //var orders = Orders.Where(o=>o.Freight>averageFreight && o.ShipVia == ShipperId);
+            #endregion
+
+            #region Get the total number of products in stock for each category and sort in ascending order.
+            //var productsPerCategory = Products
+            //    .GroupBy(p => p.CategoryID)
+            //    .Select(g => new
+            //    {
+            //        CategoryId = g.Key,
+            //        TotalStock = g.Sum(p => p.UnitsInStock) 
+            //    })
+            //    .OrderBy(pc => pc.TotalStock) 
+            //    .ToList();
+
+            //var productsPerCategoryName = productsPerCategory
+            //    .Join(Categories,
+            //          ppc => ppc.CategoryId,
+            //          c => c.CategoryID,
+            //          (ppc, c) => new
+            //          {
+            //              CategoryName = c.CategoryName,
+            //              TotalStock = ppc.TotalStock
+            //          })
+            //    .ToList();
+            #endregion
+
+            #region List all products that have a unit price higher than the average for their respective categories.
+            //var averagePricePerCat = Products.GroupBy(p=>p.CategoryID)
+            //    .Select(g=>new {categoryId = g.Key , AveragePerCategory = g.Average(p=>p.UnitPrice)}).ToList();
+
+            //var products= averagePricePerCat.Join(Products,
+            //    avg=>avg.categoryId,
+            //    p=>p.CategoryID,
+            //    (avg, p) => new {Product = p , averageUP = avg.AveragePerCategory})
+            //    .Where(x=>x.Product.UnitPrice>x.averageUP)
+            //    .Select(x=>x.Product)
+            //    .ToList();
+            #endregion
             //--------------------------------------------------------------
 
             // Retrieve the names of employees who have shipped orders to customers with a postal code starting with "9".
