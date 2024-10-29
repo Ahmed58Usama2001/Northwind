@@ -1340,7 +1340,7 @@ namespace Northwind
 
             #region Retrieve the total freight cost for each order and list in descending order.
             //var orders = Orders.OrderByDescending(o => o.Freight).Select(o => new {OrderId= o.OrderID , Freight = o.Freight}).ToList();
-            #endregion 
+            #endregion
 
             #region Find customers who have placed orders in every month of the year 1996.
             //var customersIds = Orders.Where(o=>o.OrderDate.Year==1996).GroupBy(o=>o.CustomerID).Where(g=>g.Select(o=>o.OrderDate.Month).Distinct().Count()==12)
@@ -1403,27 +1403,80 @@ namespace Northwind
             //    .Select(x=>x.Product)
             //    .ToList();
             #endregion
-            //--------------------------------------------------------------
 
-            // Retrieve the names of employees who have shipped orders to customers with a postal code starting with "9".
+            #region Retrieve the names of employees who have shipped orders to customers with a postal code starting with "9".
+            //var customersWith9PostalcodeIds = Customers.Where(c=>c.PostalCode.StartsWith('9')).Select(c=>c.CustomerID).ToList();
+            //var employeesIds = Orders.Where(o=>customersWith9PostalcodeIds.Contains(o.CustomerID)).Select(o=>o.EmployeeID).ToList();
+            //var employees = Employees.Where(e=>employeesIds.Contains(e.EmployeeID)).Select(e=>e.FirstName+' '+e.LastName).ToList();
+            #endregion
 
-            // Find suppliers that have provided products with a unit price less than $25 and more than $50.
+            #region Find suppliers that have provided products with a unit price less than $25 and more than $50.
+            //var suppliersIds = Products.Where(p=>p.UnitPrice<25 && p.UnitPrice>50).Select(p=>p.SupplierID).ToList();
+            //var suppliers = Suppliers.Where(s=>suppliersIds.Contains(s.SupplierID)).ToList();
+            #endregion
 
-            // Get all orders that were placed in the month of July and shipped by "United Package".
+            #region  Get all orders that were placed in the month of July and shipped by "United Package".
+            //var UPId = Shippers.FirstOrDefault(sh => sh.CompanyName == "United Package")?.ShipperID;
+            //var orders = Orders.Where(o=>o.OrderDate.Month == 7 && o.ShipVia== UPId).ToList();
+            #endregion
 
-            // List the top 5 cities with the highest number of shipped orders.
+            #region List the top 5 cities with the highest number of shipped orders.
+            //var cities = Orders.GroupBy(o=>o.ShipCity).OrderByDescending(g=>g.Count()).Select(g=>g.Key).Take(5).ToList();
+            //foreach (var item in cities)
+            //{
+            //    Console.WriteLine(item);
+            //}
+            #endregion
 
-            // Retrieve the names and contact details of suppliers who have provided products in the "Confections" category.
+            #region  Retrieve the names and contact details of suppliers who have provided products in the "Confections" category.
+            //var categoryId = Categories.FirstOrDefault(c => c.CategoryName == "Confections")?.CategoryID;
 
-            // Find all products that are currently out of stock but have been ordered in the past year.
+            //var suppliersIds = Products.Where(p=>p.CategoryID == categoryId).Select(p=>p.SupplierID).ToList();
 
-            // Get the total number of products supplied by each supplier and list in descending order.
+            //var suppliers = Suppliers.Where(s => suppliersIds.Contains(s.SupplierID)).Select(s => new
+            //{
+            //    Name = s.CompanyName,
+            //    Contact = s.ContactTitle,
+            //    Address = s.Address,
+            //    Fax = s.Fax,
+            //    Phone = s.Phone,
+            //    HomePage = s.HomePage
+            //}).ToList();
+            #endregion
 
-            // List all customers with a contact title of "Sales Representative" and who have ordered more than 3 products.
+            #region Find all products that are currently out of stock but have been ordered in the past year.
+            //var productsOrderedLastYearIds = Orders.Where(o=>DateTime.Now.Year-o.OrderDate.Year==1).Join(OrderDetails,
+            //    o=>o.OrderID,
+            //    od=>od.OrderID,
+            //    (o, od) => new {ProductId = od.ProductID})
+            //    .Select(x=>x.ProductId)
+            //    .ToList();
 
-            // Retrieve the names of employees who have processed orders for the highest number of products.
+            //var OutOfStockProducts = Products.Where(p=>p.UnitsInStock==0 && productsOrderedLastYearIds.Contains(p.ProductID)).ToList();
+            #endregion
 
-            // Find the suppliers that have the same contact title as the employee with the most orders.
+            #region Get the total number of products supplied by each supplier and list in descending order.
+            //var ProductsPerSupplier = Products.GroupBy(p => p.SupplierID).Select(g => new {SupplierId = g.Key, NoOfProducts = g.Count()})
+            //    .Join(Suppliers,
+            //    p=>p.SupplierId,
+            //    s=>s.SupplierID,
+            //    (p, s) => new {SupplierName = s.CompanyName , NoOfProducts = p.NoOfProducts})
+            //    .ToList();
+            #endregion
+
+            #region List all customers with a contact title of "Sales Representative" and who have ordered more than 3 products.
+            //var customersIds= Orders.GroupBy(o=>o.CustomerID).Where(g=>g.Count()>3).Select(g=>g.Key).ToList();
+
+            //var customers = Customers.Where(c=>customersIds.Contains(c.CustomerID) && c.ContactTitle== "Sales Representative").ToList(); 
+            #endregion
+
+
+            #region Find the suppliers that have the same contact title as the employee with the most orders.
+            //var employeeId = Orders.GroupBy(o=>o.EmployeeID).OrderByDescending(g=>g.Count()).First().Key;
+            //var employeeContactTitle = Employees.FirstOrDefault(e => e.EmployeeID == employeeId)?.Title;
+            //var suppliers = Suppliers.Where(s=>s.ContactTitle == employeeContactTitle).ToList();
+            #endregion
+
             //--------------------------------------------------------------
 
             // Get all orders that were shipped with a discount applied.
