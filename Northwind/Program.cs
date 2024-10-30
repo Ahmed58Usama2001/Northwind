@@ -1477,8 +1477,6 @@ namespace Northwind
             //var suppliers = Suppliers.Where(s=>s.ContactTitle == employeeContactTitle).ToList();
             #endregion
 
-            //--------------------------------------------------------------
-
             #region Get all orders that were shipped with a discount applied.
             //var orders = Orders.Join(OrderDetails,
             //    o=>o.OrderID,
