@@ -1479,25 +1479,126 @@ namespace Northwind
 
             //--------------------------------------------------------------
 
-            // Get all orders that were shipped with a discount applied.
+            #region Get all orders that were shipped with a discount applied.
+            //var orders = Orders.Join(OrderDetails,
+            //    o=>o.OrderID,
+            //    od=>od.OrderID,
+            //    (o, od) => new {Order=o , OrderDetails=od})
+            //    .Where(x=>x.OrderDetails.Discount>0)
+            //    .Select(x=>x.Order)
+            //    .ToList();
+            #endregion
 
-            // List the products with the highest quantity per unit and their respective suppliers.
+            #region  List the products with the highest quantity per unit and their respective suppliers.
+            //var maxQuantity = Products
+            //    .Select(p => new
+            //    {
+            //        Product = p,
+            //        QuantityValue = int.TryParse(new string(p.QuantityPerUnit.TakeWhile(char.IsDigit).ToArray()), out int qty) ? qty : 0
+            //    })
+            //    .OrderByDescending(p => p.QuantityValue)
+            //    .FirstOrDefault()?.QuantityValue;
 
-            // Retrieve the names and addresses of customers who live in cities where the average order amount is above $200.
+            //var productsWithSuppliers = Products
+            //    .Where(p => int.TryParse(new string(p.QuantityPerUnit.TakeWhile(char.IsDigit).ToArray()), out int qty) && qty == maxQuantity)
+            //    .Join(Suppliers,
+            //        p => p.SupplierID,
+            //        s => s.SupplierID,
+            //        (p, s) => new { ProductName = p.ProductName, QuantityPerUnit = p.QuantityPerUnit, SupplierName = s.CompanyName })
+            //    .ToList();
 
-            // Find all products that have been ordered more than the average quantity ordered per product in the "Condiments" category.
+            #endregion
 
-            // Get the details of the orders that were shipped to "Berlin" and have a freight cost above $50.
+            #region Get the details of the orders that were shipped to "Berlin" and have a freight cost above $50.
+            //var ordersDetails = Orders.Where(o => o.ShipCity == "Berlin" && o.Freight > 50).Join(OrderDetails,
+            //    o => o.OrderID,
+            //    od => od.OrderID,
+            //    (o, od) => new { od })
+            //    .Select(x => x.od).ToList();
+            #endregion
 
-            // List all categories with at least 10 products and sort by the total quantity of products in stock.
+            #region List all categories with at least 10 products and sort by the total quantity of products in stock.
+            //var categoriesWithStock = Products
+            //    .GroupBy(p => p.CategoryID)
+            //    .Where(g => g.Count() >= 10)
+            //    .Select(g => new
+            //    {
+            //        CategoryID = g.Key,
+            //        TotalUnitsInStock = g.Sum(p => p.UnitsInStock)
+            //    })
+            //    .OrderByDescending(c => c.TotalUnitsInStock)
+            //    .ToList();
 
-            // Retrieve the names of suppliers who have the highest number of products in the "Dairy Products" category.
+            //var sortedCategories = categoriesWithStock
+            //    .Join(Categories,
+            //          cs => cs.CategoryID,
+            //          c => c.CategoryID,
+            //          (cs, c) => new
+            //          {
+            //              c.CategoryName,
+            //              TotalUnitsInStock = cs.TotalUnitsInStock
+            //          })
+            //    .ToList();
 
-            // Find all orders where the order date is within the first quarter of 1996 and the freight cost is less than $30.
+            #endregion
 
-            // Get the total sales amount for each employee and list them in descending order.
+            # region Find all orders where the order date is within the first quarter of 1996 and the freight cost is less than $30.
+            //var orders = Orders.Where(o => o.OrderDate.Year == 1996 && o.OrderDate.Month < 4 && o.Freight < 30).ToList();
+            #endregion
 
-            // List all products with a unit price greater than the average price in their category and with a reorder level above 10.
+            #region Get the total sales amount for each employee and list them in descending order.
+            //var orderSales = OrderDetails
+            //.Select(od => new
+            //{
+            //    od.OrderID,
+            //    SalesAmount = od.UnitPrice * od.Quantity
+            //})
+            //.ToList();
+
+            //var employeeSales = Orders
+            //    .Join(orderSales,
+            //          o => o.OrderID,
+            //          os => os.OrderID,
+            //          (o, os) => new
+            //          {
+            //              o.EmployeeID,
+            //              SalesAmount = os.SalesAmount
+            //          })
+            //    .GroupBy(e => e.EmployeeID)
+            //    .Select(g => new
+            //    {
+            //        EmployeeID = g.Key,
+            //        TotalSalesAmount = g.Sum(e => e.SalesAmount)
+            //    })
+            //    .OrderByDescending(e => e.TotalSalesAmount)
+            //    .ToList();
+
+            //var employeeSalesDetails = employeeSales
+            //    .Join(Employees,
+            //          es => es.EmployeeID,
+            //          emp => emp.EmployeeID,
+            //          (es, emp) => new
+            //          {
+            //              EmployeeName = emp.FirstName + " " + emp.LastName,
+            //              TotalSalesAmount = es.TotalSalesAmount
+            //          })
+            //    .ToList();
+
+            #endregion
+
+            #region List all products with a unit price greater than the average price in their category and with a reorder level above 10.
+            //var categoriesWithAvgPrice = Products.GroupBy(p => p.CategoryID)
+            //    .Select(g => new { CategoryId = g.Key, AvgPrice = g.Average(p => p.UnitPrice) }).ToList();
+            //var products = Products.Where(p=>p.ReorderLevel>10 )
+            //    .Join(categoriesWithAvgPrice,
+            //    p=>p.CategoryID,
+            //    cavg=>cavg.CategoryId,
+            //    (p, cavg) => new {product = p , CategoryWithAvg=cavg})
+            //    .Where(x=>x.product.UnitPrice> x.CategoryWithAvg.AvgPrice)
+            //    .Select(x=>x.product)
+            //    .ToList();
+            #endregion
+
             //--------------------------------------------------------------
 
             // Retrieve the names of customers who have placed orders in every month of 1997.
