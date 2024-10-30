@@ -1540,7 +1540,7 @@ namespace Northwind
 
             #endregion
 
-            # region Find all orders where the order date is within the first quarter of 1996 and the freight cost is less than $30.
+            #region Find all orders where the order date is within the first quarter of 1996 and the freight cost is less than $30.
             //var orders = Orders.Where(o => o.OrderDate.Year == 1996 && o.OrderDate.Month < 4 && o.Freight < 30).ToList();
             #endregion
 
@@ -1597,29 +1597,113 @@ namespace Northwind
             //    .ToList();
             #endregion
 
-            //--------------------------------------------------------------
+            #region  Retrieve the names of customers who have placed orders in every month of 1997.
+            //var customersIds = Orders.GroupBy(o=>o.CustomerID).Where(g=>g.Select(o=>o.OrderDate.Month).Distinct().Count()==12).Select(g=>g.Key).ToList();
 
-            // Retrieve the names of customers who have placed orders in every month of 1997.
+            //var customers = Customers.Where(c=>customersIds.Contains(c.CustomerID)).ToList();
 
-            // Find the products that have the highest quantity ordered and were supplied by suppliers from "Italy".
+            #endregion
 
-            // Get all orders where the ship city is "Seattle" and the order amount is greater than $100.
+            #region Find the products that have the highest quantity ordered and were supplied by suppliers from "Italy".
+            //var italianSupplierIds = Suppliers
+            //.Where(s => s.Country == "Italy")
+            //.Select(s => s.SupplierID)
+            //.ToList();
 
-            // List all employees who have shipped products with a quantity greater than the average quantity ordered.
+            //var italianProducts = Products
+            //    .Where(p => italianSupplierIds.Contains((int)p.SupplierID))
+            //    .Select(p => p.ProductID)
+            //    .ToList();
 
-            // Retrieve the names of suppliers who have provided products with a unit price between $20 and $40.
+            //var productQuantities = OrderDetails
+            //    .Where(od => italianProducts.Contains(od.ProductID))
+            //    .GroupBy(od => od.ProductID)
+            //    .Select(g => new { ProductID = g.Key, TotalQuantity = g.Sum(od => od.Quantity) })
+            //    .OrderByDescending(g => g.TotalQuantity)
+            //    .ToList();
 
-            // Find the top 10 products with the highest total quantity ordered.
+            //var maxQuantity = productQuantities.FirstOrDefault()?.TotalQuantity ?? 0;
 
-            // Get all orders where the required date is before the order date and the freight cost is below $25.
+            //var topItalianProducts = productQuantities
+            //    .Where(pq => pq.TotalQuantity == maxQuantity)
+            //    .Select(pq => Products.FirstOrDefault(p => p.ProductID == pq.ProductID))
+            //    .ToList();
 
-            // List the names and contact titles of suppliers who have shipped products in the "Seafood" category.
+            #endregion
 
-            // Retrieve the names of employees who have processed orders for more than 5 different categories.
+            #region Get all orders where the ship city is "Seattle" and the order amount is greater than $100.
+            //var orderDetails = OrderDetails.Where(od => od.Quantity > 100);
 
-            // Find all products that have been ordered by customers with a postal code starting with "1" and are in stock.
+            //var orders = Orders.Where(o=>o.ShipCity=="Seattle")
+            //    .Join(orderDetails,
+            //    o=>o.OrderID,
+            //    od=>od.OrderID,
+            //    (o, od) => new {o})
+            //    .Select(x=>x.o) .ToList();
 
-            // Get the total number of orders placed by customers from each city and list them in descending order.
+            #endregion
+
+            #region List all employees who have shipped products with a quantity greater than the average quantity ordered.
+            //var averageQuantityOrderd = OrderDetails.Average(od=>od.Quantity);
+
+            //var ordersIds = OrderDetails.Where(o=>o.Quantity>averageQuantityOrderd).Select(od=>od.OrderID).ToList();
+
+            //var employeesIds = Orders.Where(o=>ordersIds.Contains(o.OrderID)).Select(o=>o.EmployeeID).ToList();
+
+            //var employees = Employees.Where(e=>employeesIds.Contains(e.EmployeeID)).ToList();
+
+            #endregion
+
+            #region Retrieve the names of suppliers who have provided products with a unit price between $20 and $40.
+            //var suppliersIds = Products.Where(p=>p.UnitPrice>=20 &&  p.UnitPrice<=40).Select(p=>p.SupplierID).ToList();
+            //var suppliers = Suppliers.Where(s=>suppliersIds.Contains(s.SupplierID)).ToList();
+            #endregion
+
+            #region  Find the top 10 products with the highest total quantity ordered.
+            //var productsIds = OrderDetails.GroupBy(od=>od.ProductID).OrderByDescending(g=>g.Sum(od=>od.Quantity)).Select(g=>g.Key).Take(10).ToList();
+
+            //var products = Products.Where(p=>productsIds.Contains(p.ProductID)).ToList();
+
+            #endregion
+
+            #region Get all orders where the required date is before the order date and the freight cost is below $25.
+            //var orders = Orders.Where(o=>o.Freight<25 && o.RequiredDate<o.OrderDate).ToList();
+
+            #endregion
+
+            #region List the names and contact titles of suppliers who have shipped products in the "Seafood" category.
+            //var categoryId = Categories.FirstOrDefault(c => c.CategoryName == "Seafood")?.CategoryID;
+            //var suppliersId= Products.Where(p=>p.CategoryID == categoryId).Select(p=>p.SupplierID).ToList();
+            //var suppliers = Suppliers.Where(s=>suppliersId.Contains(s.SupplierID)).Select(s=>new {Name = s.CompanyName , ContactTitle = s.ContactTitle }).ToList();
+
+            #endregion
+
+            #region  Find all products that have been ordered by customers with a postal code starting with "1" and are in stock.
+            //var customersIds = Customers.Where(c=>c.PostalCode.StartsWith('1')).Select(c=>c.CustomerID).ToList();
+            //var orderedProductIds = Orders
+            //    .Where(o => customersIds.Contains(o.CustomerID))
+            //    .Join(OrderDetails, o => o.OrderID, od => od.OrderID, (o, od) => od.ProductID)
+            //    .Distinct()
+            //    .ToList();
+
+            //var products = Products
+            //    .Where(p => orderedProductIds.Contains(p.ProductID) && p.UnitsInStock > 0)
+            //    .Select(p => new { p.ProductName, p.UnitsInStock })
+            //    .ToList();
+            #endregion
+
+            #region Get the total number of orders placed by customers from each city and list them in descending order.
+            //var cityOrderCounts = Orders
+            //    .Join(Customers,
+            //          o => o.CustomerID,
+            //          c => c.CustomerID,
+            //          (o, c) => new { c.City, o.OrderID })
+            //    .GroupBy(x => x.City)
+            //    .Select(g => new { City = g.Key, TotalOrders = g.Count() })
+            //    .OrderByDescending(x => x.TotalOrders)
+            //    .ToList();
+
+            #endregion
 
             #endregion Medium
 
